@@ -61,6 +61,50 @@
             animation: float 6s ease-in-out infinite;
         }
         
+        .mascot-float {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 4rem;
+            animation: float 6s ease-in-out infinite 1s;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+        }
+        
+        .hero-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .stat-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 100px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 1.6s ease 1s both;
+        }
+        
+        .stat-emoji {
+            font-size: 1.5rem;
+        }
+        
+        .stat-badge strong {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--deep-blue);
+        }
+        
+        .stat-badge span {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+        }
+        
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-20px); }
@@ -433,6 +477,214 @@
             }
         }
         
+        /* WHY THIS WORKS */
+        .why-works {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--warm-gray);
+            margin-top: -2rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+        
+        .why-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .why-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .why-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+        
+        .why-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .why-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.75rem;
+            color: var(--deep-blue);
+        }
+        
+        .why-card p {
+            color: var(--warm-gray);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* LEADERBOARD PREVIEW */
+        .leaderboard-preview {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--swedish-blue) 0%, #004680 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .leaderboard-preview .section-title {
+            color: white;
+        }
+        
+        .leaderboard-preview .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .leaderboard-container {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .leaderboard-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .leaderboard-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .leaderboard-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .rank-1 {
+            background: linear-gradient(135deg, rgba(255, 205, 0, 0.3) 0%, rgba(255, 205, 0, 0.1) 100%);
+            border: 2px solid var(--swedish-yellow);
+        }
+        
+        .rank-2 {
+            background: rgba(192, 192, 192, 0.2);
+        }
+        
+        .rank-3 {
+            background: rgba(205, 127, 50, 0.2);
+        }
+        
+        .rank-badge {
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+        
+        .speaker-info {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .speaker-info strong {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .speaker-info span {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+        
+        .leaderboard-cta {
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            opacity: 0.9;
+        }
+        
+        /* CORRECTION EXAMPLE */
+        .correction-example {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 88, 163, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid var(--swedish-blue);
+        }
+        
+        .user-mistake {
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .correction-arrow {
+            text-align: center;
+            color: var(--swedish-blue);
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+        
+        .kompis-correction {
+            padding: 0.75rem;
+            background: rgba(76, 217, 100, 0.1);
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+            text-align: left;
+        }
+        
+        .correction-label {
+            display: block;
+            font-size: 0.75rem;
+            color: #4CD964;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
+        .kompis-correction strong {
+            color: var(--swedish-blue);
+            font-weight: 700;
+        }
+        
+        .correction-explain {
+            padding: 0.75rem;
+            background: rgba(255, 205, 0, 0.1);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            text-align: left;
+            line-height: 1.5;
+        }
+        
+        .explain-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--swedish-yellow);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+        
         /* KOMPIS ALSO DOES */
         .also-does {
             padding: 6rem 2rem;
@@ -651,6 +903,51 @@
             color: var(--warm-gray);
             line-height: 1.7;
             margin: 0;
+        }
+        
+        /* BUILT FOR */
+        .built-for {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+        
+        .audience-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .audience-card {
+            background: white;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+        }
+        
+        .audience-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+        
+        .audience-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .audience-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--deep-blue);
+        }
+        
+        .audience-card p {
+            color: var(--warm-gray);
+            line-height: 1.7;
         }
         
         /* HOW IT WORKS */
@@ -1097,6 +1394,37 @@
                 });
             });
         });
+        
+        // Voice sample playback using Web Speech API
+        document.addEventListener('DOMContentLoaded', () => {
+            const voiceSamples = document.querySelectorAll('.voice-sample');
+            
+            voiceSamples.forEach(sample => {
+                const button = sample.querySelector('.play-button');
+                const text = sample.getAttribute('data-text');
+                const lang = sample.getAttribute('data-lang');
+                
+                button.addEventListener('click', () => {
+                    // Cancel any ongoing speech
+                    window.speechSynthesis.cancel();
+                    
+                    // Create new utterance
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = lang || 'sv-SE';
+                    utterance.rate = 0.9; // Slightly slower for clarity
+                    
+                    // Visual feedback
+                    button.style.opacity = '0.5';
+                    
+                    utterance.onend = () => {
+                        button.style.opacity = '1';
+                    };
+                    
+                    // Speak
+                    window.speechSynthesis.speak(utterance);
+                });
+            });
+        });
     </script>
     
     <!-- HERO SECTION -->
@@ -1109,19 +1437,37 @@
         </h1>
         
         <p class="hero-subtext">
-            Practice real conversations with an AI partner. No pressure. No judgment. Just speak.
+            Your AI Swedish friend. Practice real conversations. No pressure. No judgment.
         </p>
         
         <a href="https://t.me/KompisBuddyBot" class="cta-button">
             <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
-            Start speaking
+            Start speaking now
         </a>
         
         <p class="friction-remover">
-            No downloads. No signup. No pressure.
+            Free pilot · No downloads · Just talk
         </p>
+        
+        <!-- Live Leaderboard Preview -->
+        <div class="hero-stats">
+            <div class="stat-badge">
+                <span class="stat-emoji">🔥</span>
+                <div>
+                    <strong>5 people</strong>
+                    <span>speaking right now</span>
+                </div>
+            </div>
+            <div class="stat-badge">
+                <span class="stat-emoji">💬</span>
+                <div>
+                    <strong>200+</strong>
+                    <span>conversations today</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- ANIMATED DEMO -->
@@ -1168,6 +1514,88 @@
         </div>
     </section>
 
+    <!-- WHY THIS WORKS -->
+    <section class="why-works">
+        <h2 class="section-title">why kompis works</h2>
+        <p class="section-subtitle">The psychology of language confidence</p>
+        
+        <div class="why-grid">
+            <div class="why-card">
+                <div class="why-icon">🧠</div>
+                <h3>No social anxiety</h3>
+                <p>Real Swedes make you nervous. Kompis doesn't judge, doesn't get impatient, never switches to English when you struggle.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon">🔁</div>
+                <h3>Repetition without shame</h3>
+                <p>Say something wrong 10 times? Kompis gently corrects you every time. No eye rolls. No frustration. Just patient practice.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon">⚡</div>
+                <h3>Daily habit formation</h3>
+                <p>5 minutes while making coffee. 3 minutes on the bus. Kompis is always ready for a quick conversation when you are.</p>
+            </div>
+            
+            <div class="why-card">
+                <div class="why-icon">🎯</div>
+                <h3>Real conversations</h3>
+                <p>Not vocabulary drills or grammar exercises. Actual Swedish conversations about your day, your life, your interests.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TODAY'S LEADERBOARD -->
+    <section class="leaderboard-preview">
+        <h2 class="section-title">🔥 today's active speakers</h2>
+        <p class="section-subtitle">Live leaderboard updates every hour</p>
+        
+        <div class="leaderboard-container">
+            <div class="leaderboard-item rank-1">
+                <div class="rank-badge">🥇</div>
+                <div class="speaker-info">
+                    <strong>Mark</strong>
+                    <span>13 samtal idag</span>
+                </div>
+            </div>
+            
+            <div class="leaderboard-item rank-2">
+                <div class="rank-badge">🥈</div>
+                <div class="speaker-info">
+                    <strong>Steve</strong>
+                    <span>12 samtal idag</span>
+                </div>
+            </div>
+            
+            <div class="leaderboard-item rank-3">
+                <div class="rank-badge">🥉</div>
+                <div class="speaker-info">
+                    <strong>Mariia</strong>
+                    <span>11 samtal idag</span>
+                </div>
+            </div>
+            
+            <div class="leaderboard-item">
+                <div class="rank-badge">🎁</div>
+                <div class="speaker-info">
+                    <strong>Njeri</strong>
+                    <span>7 samtal idag</span>
+                </div>
+            </div>
+            
+            <div class="leaderboard-item">
+                <div class="rank-badge">🎁</div>
+                <div class="speaker-info">
+                    <strong>Ozioma</strong>
+                    <span>5 samtal idag</span>
+                </div>
+            </div>
+        </div>
+        
+        <p class="leaderboard-cta">Join them and start speaking →</p>
+    </section>
+
     <!-- HOW IT WORKS -->
     <section class="how-it-works">
         <h2 class="section-title">literally 3 steps</h2>
@@ -1202,7 +1630,7 @@
         <p>Kompis starts conversations like a real friend would.</p>
         
         <div class="voice-demo">
-            <div class="voice-sample">
+            <div class="voice-sample" data-text="Hur var din dag?" data-lang="sv">
                 <button class="play-button" aria-label="Play sample"></button>
                 <div class="voice-text">
                     <strong>"Hur var din dag?"</strong>
@@ -1210,7 +1638,7 @@
                 </div>
             </div>
             
-            <div class="voice-sample">
+            <div class="voice-sample" data-text="Vad äter du till frukost?" data-lang="sv">
                 <button class="play-button" aria-label="Play sample"></button>
                 <div class="voice-text">
                     <strong>"Vad äter du till frukost?"</strong>
@@ -1218,7 +1646,7 @@
                 </div>
             </div>
             
-            <div class="voice-sample">
+            <div class="voice-sample" data-text="Berätta om ditt jobb!" data-lang="sv">
                 <button class="play-button" aria-label="Play sample"></button>
                 <div class="voice-text">
                     <strong>"Berätta om ditt jobb!"</strong>
@@ -1240,6 +1668,19 @@
                 <div class="feature-icon">✏️</div>
                 <h3>gentle corrections</h3>
                 <p>Makes mistakes? Kompis corrects you like a friend would — kindly and naturally, not like a teacher.</p>
+                
+                <div class="correction-example">
+                    <div class="user-mistake">"Jag är nerveus när jag pratar svenska"</div>
+                    <div class="correction-arrow">↓</div>
+                    <div class="kompis-correction">
+                        <span class="correction-label">✓ Better:</span>
+                        "Jag är <strong>nervös</strong> när jag pratar svenska"
+                    </div>
+                    <div class="correction-explain">
+                        <span class="explain-label">💡 Why:</span>
+                        "nerveus" is a common spelling mistake. The Swedish word is "nervös"
+                    </div>
+                </div>
             </div>
             
             <div class="feature-card">
@@ -1396,6 +1837,31 @@
                 <div class="faq-answer">
                     <p>Pilot testers get special pricing (50 SEK/month) if they want to continue. You'll never be forced to pay — but if Kompis helps you speak Swedish confidently, we think you'll want to keep going.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUILT FOR -->
+    <section class="built-for">
+        <h2 class="section-title">built for Swedish learners in real life</h2>
+        
+        <div class="audience-grid">
+            <div class="audience-card">
+                <div class="audience-icon">📚</div>
+                <h3>SFI Students</h3>
+                <p>Practice between classes. Build confidence before speaking with classmates. Kompis never judges your accent.</p>
+            </div>
+            
+            <div class="audience-card">
+                <div class="audience-icon">💼</div>
+                <h3>International Workers</h3>
+                <p>Your Swedish colleagues always switch to English? Kompis stays in Swedish. Perfect for practicing work conversations.</p>
+            </div>
+            
+            <div class="audience-card">
+                <div class="audience-icon">🏠</div>
+                <h3>New Residents</h3>
+                <p>Just moved to Sweden? Build speaking confidence before your first Swedish conversation. No pressure, just practice.</p>
             </div>
         </div>
     </section>
