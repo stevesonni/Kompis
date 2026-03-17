@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompis — Öva svenska utan rädsla</title>
+    <meta name="description" content="Practice Swedish with an AI conversation partner. No judgment. No pressure. Just talk.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cream: #FDF6E3;
+            --deep-blue: #1A3B5C;
+            --swedish-blue: #0058A3;
+            --swedish-yellow: #FFCD00;
+            --rust: #D44D3E;
+            --warm-gray: #8B7B6B;
+            --off-white: #FFFEF9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--deep-blue);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 205, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 88, 163, 0.08) 0%, transparent 50%),
+                var(--cream);
+        }
+        
+        .hero::before {
+            content: '🇸🇪';
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 2.5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .tagline {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--swedish-blue);
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+        
+        .hero h1 .problem {
+            color: var(--warm-gray);
+        }
+        
+        .hero h1 .solution {
+            color: var(--rust);
+            display: block;
+        }
+        
+        .hero-subtext {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--warm-gray);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            animation: fadeIn 1.2s ease 0.4s both;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 3rem;
+            background: var(--swedish-blue);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(0, 88, 163, 0.2);
+            animation: fadeInUp 1.4s ease 0.6s both;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 88, 163, 0.3);
+            background: #004680;
+        }
+        
+        .cta-button svg {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .friction-remover {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--warm-gray);
+            animation: fadeIn 1.6s ease 0.8s both;
+        }
+        
+        /* ANIMATED DEMO */
+        .demo-section {
+            padding: 8rem 2rem;
+            background: var(--deep-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        
+        .demo-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            color: white;
+            font-weight: 700;
+        }
+        
+        .phone-mockup {
+            max-width: 380px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 8px rgba(255, 255, 255, 0.1),
+                0 30px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+        }
+        
+        .phone-header {
+            background: #1C1C1E;
+            border-radius: 28px 28px 0 0;
+            padding: 8px 20px 8px 20px;
+            position: relative;
+        }
+        
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: #000;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .phone-status {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 0.75rem;
+            padding-top: 6px;
+        }
+        
+        .phone-icons {
+            display: flex;
+            gap: 4px;
+        }
+        
+        .chat-header {
+            background: #1C1C1E;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--swedish-blue), var(--swedish-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .chat-info {
+            flex: 1;
+        }
+        
+        .chat-info strong {
+            display: block;
+            color: white;
+            font-size: 0.95rem;
+        }
+        
+        .online-status {
+            font-size: 0.75rem;
+            color: #4CD964;
+        }
+        
+        .messages-container {
+            background: #1C1C1E;
+            min-height: 400px;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .message {
+            display: flex;
+            gap: 8px;
+            align-items: flex-end;
+            opacity: 0;
+            animation: messageSlideIn 0.4s ease forwards;
+        }
+        
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        
+        .message.kompis {
+            flex-direction: row;
+        }
+        
+        .message-bubble {
+            max-width: 75%;
+            padding: 12px 16px;
+            border-radius: 20px;
+            position: relative;
+        }
+        
+        .message.user .message-bubble {
+            background: var(--swedish-blue);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .message.kompis .message-bubble {
+            background: #2C2C2E;
+            color: white;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .voice-message {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 200px;
+        }
+        
+        .voice-play-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        
+        .voice-play-btn::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 8px solid white;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            margin-left: 2px;
+        }
+        
+        .voice-waveform {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            height: 20px;
+        }
+        
+        .wave-bar {
+            width: 3px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 2px;
+            animation: waveAnimation 1.2s ease-in-out infinite;
+        }
+        
+        .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+        .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { height: 18px; animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { height: 12px; animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { height: 16px; animation-delay: 0.4s; }
+        .wave-bar:nth-child(6) { height: 10px; animation-delay: 0.5s; }
+        .wave-bar:nth-child(7) { height: 14px; animation-delay: 0.6s; }
+        .wave-bar:nth-child(8) { height: 8px; animation-delay: 0.7s; }
+        
+        .voice-duration {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            white-space: nowrap;
+        }
+        
+        .message-text {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            opacity: 0.5;
+            margin-top: 4px;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 16px;
+            background: #2C2C2E;
+            border-radius: 20px;
+            border-bottom-left-radius: 4px;
+            width: fit-content;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            animation: typingAnimation 1.4s ease-in-out infinite;
+        }
+        
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        .phone-footer {
+            background: #1C1C1E;
+            padding: 12px 16px 24px;
+            border-radius: 0 0 28px 28px;
+        }
+        
+        .message-input {
+            background: #2C2C2E;
+            padding: 10px 16px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        .input-icons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        @keyframes messageSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes waveAnimation {
+            0%, 100% { 
+                height: 8px;
+                background: rgba(255, 255, 255, 0.4);
+            }
+            50% { 
+                height: 20px;
+                background: rgba(255, 255, 255, 0.8);
+            }
+        }
+        
+        @keyframes typingAnimation {
+            0%, 60%, 100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            30% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+        
+        /* KOMPIS ALSO DOES */
+        .also-does {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+        
+        .also-does-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .also-does-header h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .also-does-header .subtitle {
+            font-size: 1.2rem;
+            color: var(--warm-gray);
+            font-style: italic;
+        }
+        
+        .features-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--swedish-yellow);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+            color: var(--deep-blue);
+        }
+        
+        .feature-card p {
+            color: var(--warm-gray);
+            line-height: 1.6;
+        }
+        
+        /* TESTIMONIALS */
+        .testimonials {
+            padding: 6rem 2rem;
+            background: 
+                linear-gradient(135deg, rgba(0, 88, 163, 0.05) 0%, rgba(255, 205, 0, 0.05) 100%),
+                var(--cream);
+        }
+        
+        .testimonials-grid {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quote-mark {
+            font-family: 'Fraunces', serif;
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--swedish-yellow);
+            opacity: 0.3;
+            position: absolute;
+            top: 1rem;
+            left: 1.5rem;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--deep-blue);
+            margin-bottom: 1.5rem;
+            padding-top: 2rem;
+            font-style: italic;
+        }
+        
+        .testimonial-footer {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--swedish-blue), var(--swedish-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .testimonial-info {
+            flex: 1;
+        }
+        
+        .testimonial-info strong {
+            display: block;
+            font-size: 1rem;
+            color: var(--deep-blue);
+            margin-bottom: 0.25rem;
+        }
+        
+        .testimonial-info span {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+        }
+        
+        /* FAQ */
+        .faq {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+        
+        .faq-item:hover {
+            border-color: var(--swedish-yellow);
+        }
+        
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+        
+        .faq-question h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--deep-blue);
+            margin: 0;
+        }
+        
+        .faq-toggle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--swedish-blue);
+            transition: transform 0.3s ease;
+        }
+        
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 0 2rem 1.5rem 2rem;
+        }
+        
+        .faq-answer p {
+            color: var(--warm-gray);
+            line-height: 1.7;
+            margin: 0;
+        }
+        
+        /* HOW IT WORKS */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--off-white);
+        }
+        
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            font-weight: 700;
+        }
+        
+        .steps {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+        }
+        
+        .step {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 2px solid var(--swedish-yellow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .step-number {
+            font-family: 'Fraunces', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--swedish-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+        
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step h3 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
+        
+        .step p {
+            color: var(--warm-gray);
+            font-size: 1.1rem;
+        }
+        
+        /* VOICE FEATURE */
+        .voice-feature {
+            padding: 6rem 2rem;
+            background: var(--swedish-blue);
+            color: white;
+            text-align: center;
+        }
+        
+        .voice-feature h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .voice-feature p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+        }
+        
+        .voice-demo {
+            max-width: 500px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .voice-sample {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .play-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        
+        .play-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 12px solid var(--swedish-blue);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            margin-left: 3px;
+        }
+        
+        .voice-text {
+            flex: 1;
+            text-align: left;
+        }
+        
+        .voice-text strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+        
+        .voice-text small {
+            opacity: 0.7;
+        }
+        
+        /* STATS */
+        .stats {
+            padding: 6rem 2rem;
+            background: var(--cream);
+        }
+        
+        .stats-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 900;
+            color: var(--rust);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: var(--warm-gray);
+            font-size: 1rem;
+            text-transform: lowercase;
+        }
+        
+        /* FINAL CTA */
+        .final-cta {
+            padding: 8rem 2rem;
+            background: 
+                linear-gradient(135deg, var(--swedish-blue) 0%, #004680 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 205, 0, 0.15) 0%, transparent 70%);
+            top: -250px;
+            right: -250px;
+            border-radius: 50%;
+        }
+        
+        .final-cta h2 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1rem;
+            font-weight: 900;
+            position: relative;
+        }
+        
+        .final-cta .solution-text {
+            color: var(--swedish-yellow);
+        }
+        
+        .final-cta p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .final-cta .cta-button {
+            background: white;
+            color: var(--swedish-blue);
+            position: relative;
+        }
+        
+        .final-cta .cta-button:hover {
+            background: var(--cream);
+            color: var(--swedish-blue);
+        }
+        
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+            
+            .how-it-works,
+            .voice-feature,
+            .stats,
+            .final-cta {
+                padding: 4rem 1.5rem;
+            }
+            
+            .step {
+                padding: 2rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Animated conversation demo
+        const conversation = [
+            {
+                sender: 'user',
+                type: 'voice',
+                duration: '0:03',
+                delay: 1000
+            },
+            {
+                sender: 'kompis',
+                type: 'typing',
+                delay: 2000
+            },
+            {
+                sender: 'kompis',
+                type: 'voice',
+                text: 'Hej! Vad roligt att prata med dig. Hur var din dag idag?',
+                duration: '0:05',
+                delay: 2500
+            },
+            {
+                sender: 'user',
+                type: 'voice',
+                duration: '0:04',
+                delay: 4500
+            },
+            {
+                sender: 'kompis',
+                type: 'typing',
+                delay: 1500
+            },
+            {
+                sender: 'kompis',
+                type: 'voice',
+                text: 'Vad kul! Vad gjorde du på jobbet?',
+                duration: '0:04',
+                delay: 2000
+            },
+            {
+                sender: 'user',
+                type: 'voice',
+                duration: '0:06',
+                delay: 4000
+            },
+            {
+                sender: 'kompis',
+                type: 'typing',
+                delay: 1500
+            },
+            {
+                sender: 'kompis',
+                type: 'text',
+                text: 'Bra jobbat! Du pratar svenska bra. Fortsätt så! 💪',
+                delay: 2000
+            }
+        ];
+
+        function createVoiceMessage(duration) {
+            return `
+                <div class="voice-message">
+                    <button class="voice-play-btn"></button>
+                    <div class="voice-waveform">
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                        <div class="wave-bar"></div>
+                    </div>
+                    <div class="voice-duration">${duration}</div>
+                </div>
+            `;
+        }
+
+        function createTypingIndicator() {
+            return `
+                <div class="typing-indicator">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+            `;
+        }
+
+        function addMessage(message, index) {
+            const container = document.getElementById('messagesContainer');
+            
+            if (message.type === 'typing') {
+                // Add typing indicator
+                const typingDiv = document.createElement('div');
+                typingDiv.className = 'message kompis';
+                typingDiv.innerHTML = createTypingIndicator();
+                typingDiv.style.animationDelay = '0s';
+                container.appendChild(typingDiv);
+                
+                // Remove typing indicator before next message
+                setTimeout(() => {
+                    container.removeChild(typingDiv);
+                }, message.delay - 200);
+                
+            } else {
+                // Add actual message
+                setTimeout(() => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message ${message.sender}`;
+                    messageDiv.style.animationDelay = '0s';
+                    
+                    let content = '';
+                    if (message.type === 'voice') {
+                        content = createVoiceMessage(message.duration);
+                    } else {
+                        content = `<div class="message-text">${message.text}</div>`;
+                    }
+                    
+                    messageDiv.innerHTML = `
+                        <div class="message-bubble">
+                            ${content}
+                        </div>
+                    `;
+                    
+                    container.appendChild(messageDiv);
+                    
+                    // Scroll to bottom
+                    container.scrollTop = container.scrollHeight;
+                }, message.type === 'typing' ? 0 : message.delay);
+            }
+        }
+
+        // Start conversation animation when page loads
+        window.addEventListener('load', () => {
+            let cumulativeDelay = 0;
+            
+            conversation.forEach((message, index) => {
+                setTimeout(() => {
+                    addMessage(message, index);
+                }, cumulativeDelay);
+                
+                cumulativeDelay += message.delay;
+            });
+            
+            // Loop the animation
+            setInterval(() => {
+                const container = document.getElementById('messagesContainer');
+                container.innerHTML = '';
+                
+                let loopDelay = 0;
+                conversation.forEach((message, index) => {
+                    setTimeout(() => {
+                        addMessage(message, index);
+                    }, loopDelay);
+                    loopDelay += message.delay;
+                });
+            }, cumulativeDelay + 3000); // Restart after conversation + 3s pause
+        });
+        
+        // FAQ Accordion
+        document.addEventListener('DOMContentLoaded', () => {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+        });
+    </script>
+    
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="tagline">🎤 On Telegram. Seriously.</div>
+        
+        <h1>
+            <span class="problem">speaking Swedish is hard.</span>
+            <span class="solution">just talk to kompis.</span>
+        </h1>
+        
+        <p class="hero-subtext">
+            Practice real conversations with an AI partner. No pressure. No judgment. Just speak.
+        </p>
+        
+        <a href="https://t.me/KompisBuddyBot" class="cta-button">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+            Start speaking
+        </a>
+        
+        <p class="friction-remover">
+            No downloads. No signup. No pressure.
+        </p>
+    </section>
+
+    <!-- ANIMATED DEMO -->
+    <section class="demo-section">
+        <div class="demo-container">
+            <h2 class="demo-title">see it in action</h2>
+            
+            <div class="phone-mockup">
+                <div class="phone-header">
+                    <div class="phone-notch"></div>
+                    <div class="phone-status">
+                        <span>9:41</span>
+                        <div class="phone-icons">
+                            <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor">
+                                <path d="M15.5 0h-14C0.67 0 0 0.67 0 1.5v9C0 11.33 0.67 12 1.5 12h14c0.83 0 1.5-0.67 1.5-1.5v-9C17 0.67 16.33 0 15.5 0zm-0.5 9.5c0 0.28-0.22 0.5-0.5 0.5h-12c-0.28 0-0.5-0.22-0.5-0.5v-7c0-0.28 0.22-0.5 0.5-0.5h12c0.28 0 0.5 0.22 0.5 0.5v7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="chat-header">
+                    <div class="chat-avatar">K</div>
+                    <div class="chat-info">
+                        <strong>Kompis</strong>
+                        <span class="online-status">online</span>
+                    </div>
+                </div>
+                
+                <div class="messages-container" id="messagesContainer">
+                    <!-- Messages will be dynamically added here -->
+                </div>
+                
+                <div class="phone-footer">
+                    <div class="message-input">
+                        <span style="opacity: 0.5;">Message</span>
+                        <div class="input-icons">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="opacity: 0.3;">
+                                <path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <h2 class="section-title">literally 3 steps</h2>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">Step 1</div>
+                <div class="step-icon">💬</div>
+                <h3>open telegram</h3>
+                <p>You already have it on your phone. Just tap the button above.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">Step 2</div>
+                <div class="step-icon">🎤</div>
+                <h3>send a voice message</h3>
+                <p>Say anything in Swedish. Kompis listens and responds.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">Step 3</div>
+                <div class="step-icon">🗣️</div>
+                <h3>start a conversation</h3>
+                <p>Keep talking. Kompis keeps the conversation flowing naturally.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VOICE FEATURE -->
+    <section class="voice-feature">
+        <h2>don't know what to say?</h2>
+        <p>Kompis starts conversations like a real friend would.</p>
+        
+        <div class="voice-demo">
+            <div class="voice-sample">
+                <button class="play-button" aria-label="Play sample"></button>
+                <div class="voice-text">
+                    <strong>"Hur var din dag?"</strong>
+                    <small>0:03</small>
+                </div>
+            </div>
+            
+            <div class="voice-sample">
+                <button class="play-button" aria-label="Play sample"></button>
+                <div class="voice-text">
+                    <strong>"Vad äter du till frukost?"</strong>
+                    <small>0:04</small>
+                </div>
+            </div>
+            
+            <div class="voice-sample">
+                <button class="play-button" aria-label="Play sample"></button>
+                <div class="voice-text">
+                    <strong>"Berätta om ditt jobb!"</strong>
+                    <small>0:03</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KOMPIS ALSO DOES -->
+    <section class="also-does">
+        <div class="also-does-header">
+            <h2>kompis also does...</h2>
+            <p class="subtitle">because one trick ponies are boring</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✏️</div>
+                <h3>gentle corrections</h3>
+                <p>Makes mistakes? Kompis corrects you like a friend would — kindly and naturally, not like a teacher.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>adapts to your level</h3>
+                <p>Beginner or advanced? Kompis matches your Swedish level and adjusts the conversation difficulty.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🚫</div>
+                <h3>never switches to english</h3>
+                <p>Unlike real Swedes, Kompis NEVER gives up and switches to English. You'll actually practice Swedish.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h3>keeps conversation flowing</h3>
+                <p>Awkward silence? Never. Kompis always asks follow-up questions like a real conversation partner.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌙</div>
+                <h3>available 24/7</h3>
+                <p>Practice at 3 AM or during lunch break. Kompis doesn't sleep, doesn't cancel, always shows up.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">😌</div>
+                <h3>zero judgment zone</h3>
+                <p>Say something wrong 10 times? Kompis doesn't get frustrated, doesn't judge, just helps you improve.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <h2 class="section-title">what early testers say</h2>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    Kompis ger mig nytt sätt att öva svenska. Det är lättare än att prata med riktiga människor.
+                </p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-avatar">PT</div>
+                    <div class="testimonial-info">
+                        <strong>Pilot Tester</strong>
+                        <span>SFI Student</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    This has great potential! I can practice without being afraid of making mistakes. No one switches to English.
+                </p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-avatar">PT</div>
+                    <div class="testimonial-info">
+                        <strong>Pilot Tester</strong>
+                        <span>Helsingborg, Sweden</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="quote-mark">"</div>
+                <p class="testimonial-text">
+                    Jag övar äntligen varje dag. Kompis frågar alltid följdfrågor så samtalet fortsätter naturligt.
+                </p>
+                <div class="testimonial-footer">
+                    <div class="testimonial-avatar">PT</div>
+                    <div class="testimonial-info">
+                        <strong>Pilot Tester</strong>
+                        <span>Immigrant, Sweden</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <h2 class="section-title">questions?</h2>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Do I need to download anything?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nope. Kompis works through Telegram, which you probably already have on your phone. Just click the button, send a message, and start talking.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How much does it cost?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>The pilot is completely free. After the pilot, we'll offer continued access for 50 SEK/month (about $5) for pilot testers. Normal price will be 99 SEK/month.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What if I'm a complete beginner?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Perfect! Kompis adjusts to your level. Whether you know 10 words or 10,000, Kompis will match your Swedish and help you improve from wherever you are.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Can I use text instead of voice?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! You can type if you want. But the real value is voice practice — that's what builds speaking confidence and helps with pronunciation.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Will Kompis judge my mistakes?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Never. Kompis gently corrects you like a supportive friend, not like a strict teacher. Make the same mistake 100 times — Kompis stays patient and encouraging.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>How is this different from Duolingo?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Duolingo is great for vocabulary and grammar. Kompis is for actual speaking practice — real conversations, not multiple-choice questions. Use both together for best results.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>What happens after the pilot?</h3>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Pilot testers get special pricing (50 SEK/month) if they want to continue. You'll never be forced to pay — but if Kompis helps you speak Swedish confidently, we think you'll want to keep going.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat">
+                <div class="stat-number">30+</div>
+                <div class="stat-label">pilot testers</div>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">conversations</div>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">always available</div>
+            </div>
+            
+            <div class="stat">
+                <div class="stat-number">0kr</div>
+                <div class="stat-label">during pilot</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta">
+        <h2>
+            talk to kompis.<br>
+            <span class="solution-text">start speaking.</span>
+        </h2>
+        
+        <p>
+            Join the pilot. Practice daily. Speak confidently.
+        </p>
+        
+        <a href="https://t.me/KompisBuddyBot" class="cta-button">
+            Start your first conversation
+        </a>
+    </section>
+</body>
+</html>
