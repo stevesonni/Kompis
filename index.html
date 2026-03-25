@@ -950,6 +950,72 @@
             line-height: 1.7;
         }
         
+        /* FOOTER */
+        .footer {
+            background: var(--deep-blue);
+            color: white;
+            padding: 3rem 2rem 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+        }
+        
+        .footer-brand {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-tagline {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-link {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+        }
+        
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        
+        .footer-copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .footer-copyright p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+        
+        .footer-small {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+        
         /* HOW IT WORKS */
         .how-it-works {
             padding: 6rem 2rem;
@@ -1548,39 +1614,31 @@
 
     <!-- TODAY'S LEADERBOARD -->
     <section class="leaderboard-preview">
-        <h2 class="section-title">🔥 today's active speakers</h2>
-        <p class="section-subtitle">Live leaderboard updates every hour</p>
+        <h2 class="section-title">🔥 most active speakers</h2>
+        <p class="section-subtitle">Updated daily with total conversations</p>
         
         <div class="leaderboard-container">
             <div class="leaderboard-item rank-1">
                 <div class="rank-badge">🥇</div>
                 <div class="speaker-info">
                     <strong>Mark</strong>
-                    <span>13 samtal idag</span>
+                    <span>82+ samtal totalt</span>
                 </div>
             </div>
             
             <div class="leaderboard-item rank-2">
                 <div class="rank-badge">🥈</div>
                 <div class="speaker-info">
-                    <strong>Steve</strong>
-                    <span>12 samtal idag</span>
+                    <strong>Mariia</strong>
+                    <span>62+ samtal totalt</span>
                 </div>
             </div>
             
             <div class="leaderboard-item rank-3">
                 <div class="rank-badge">🥉</div>
                 <div class="speaker-info">
-                    <strong>Mariia</strong>
-                    <span>11 samtal idag</span>
-                </div>
-            </div>
-            
-            <div class="leaderboard-item">
-                <div class="rank-badge">🎁</div>
-                <div class="speaker-info">
-                    <strong>Njeri</strong>
-                    <span>7 samtal idag</span>
+                    <strong>Steve</strong>
+                    <span>46+ samtal totalt</span>
                 </div>
             </div>
             
@@ -1588,7 +1646,15 @@
                 <div class="rank-badge">🎁</div>
                 <div class="speaker-info">
                     <strong>Ozioma</strong>
-                    <span>5 samtal idag</span>
+                    <span>10+ samtal totalt</span>
+                </div>
+            </div>
+            
+            <div class="leaderboard-item">
+                <div class="rank-badge">🎁</div>
+                <div class="speaker-info">
+                    <strong>Njeri</strong>
+                    <span>5+ samtal totalt</span>
                 </div>
             </div>
         </div>
@@ -1870,13 +1936,13 @@
     <section class="stats">
         <div class="stats-grid">
             <div class="stat">
-                <div class="stat-number">30+</div>
+                <div class="stat-number">25+</div>
                 <div class="stat-label">pilot testers</div>
             </div>
             
             <div class="stat">
-                <div class="stat-number">200+</div>
-                <div class="stat-label">conversations</div>
+                <div class="stat-number">400+</div>
+                <div class="stat-label">total conversations</div>
             </div>
             
             <div class="stat">
@@ -1906,5 +1972,26 @@
             Start your first conversation
         </a>
     </section>
+    
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-brand">Kompis</div>
+                <p class="footer-tagline">Your Swedish friend in your pocket</p>
+            </div>
+            
+            <div class="footer-links">
+                <a href="https://t.me/KompisBuddyBot" class="footer-link">Try Kompis</a>
+                <a href="mailto:steve@kompis.se" class="footer-link">Contact</a>
+                <a href="#" class="footer-link">Privacy</a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>© 2025 Kompis. All rights reserved.</p>
+                <p class="footer-small">Designed and built with 🇸🇪 in Helsingborg, Sweden</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
