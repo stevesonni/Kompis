@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kompis — Innan vi börjar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:          #FDF6E3;
+  --deep-blue:      #1A3B5C;
+  --swedish-blue:   #0058A3;
+  --swedish-yellow: #FFCD00;
+  --rust:           #D44D3E;
+  --warm-gray:      #8B7B6B;
+  --off-white:      #FFFEF9;
+  --green:          #2D6A4F;
+}
+ 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+ 
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--deep-blue);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+ 
+/* ── PROGRESS ── */
+.prog-track {
+  position: fixed; top: 0; left: 0; right: 0;
+  height: 4px;
+  background: rgba(26,59,92,0.1);
+  z-index: 100;
+}
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--swedish-blue), var(--swedish-yellow));
+  transition: width .5s cubic-bezier(.4,0,.2,1);
+}
+ 
+/* ── NAV ── */
+.nav {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(26,59,92,0.08);
+  background: rgba(253,246,227,0.95);
+  backdrop-filter: blur(8px);
+  position: sticky; top: 0; z-index: 50;
+}
+.nav-logo {
+  font-family: 'Fraunces', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  letter-spacing: -0.02em;
+}
+.nav-flag { font-size: 1.2rem; }
+.nav-step {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--warm-gray);
+  font-weight: 500;
+}
+ 
+/* ── SCREENS ── */
+.scr {
+  display: none;
+  padding: 1.75rem 1.5rem 8rem;
+  animation: fu .3s ease both;
+  max-width: 480px;
+  margin: 0 auto;
+}
+.scr.on { display: block; }
+@keyframes fu {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+ 
+/* ── WELCOME / CONSENT ── */
+.hero-area {
+  text-align: center;
+  padding-top: 2rem;
+}
+.hero-emoji {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: 1.25rem;
+  animation: wave 1.8s ease-in-out;
+  transform-origin: 70% 70%;
+}
+@keyframes wave {
+  0%,100% { transform: rotate(0deg); }
+  15% { transform: rotate(14deg); }
+  30% { transform: rotate(-8deg); }
+  45% { transform: rotate(14deg); }
+  60% { transform: rotate(-4deg); }
+  75% { transform: rotate(10deg); }
+}
+.hero-area h1 {
+  font-family: 'Fraunces', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.hero-area p {
+  font-size: 1rem;
+  color: var(--warm-gray);
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+ 
+/* Info cards matching site feature cards */
+.info-cards {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.ic {
+  background: var(--off-white);
+  border: 1px solid rgba(26,59,92,0.1);
+  border-radius: 14px;
+  padding: 1rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(26,59,92,0.05);
+}
+.ic-emoji { font-size: 1.5rem; flex-shrink: 0; }
+.ic-txt strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+}
+.ic-txt span {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+}
+ 
+/* Consent box */
+.consent-card {
+  background: var(--off-white);
+  border: 1px solid rgba(26,59,92,0.1);
+  border-left: 4px solid var(--swedish-blue);
+  border-radius: 14px;
+  padding: 1.1rem 1.25rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 2px 8px rgba(26,59,92,0.05);
+}
+.consent-card h3 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.consent-card p {
+  font-size: 0.8rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.consent-card p:last-child { margin-bottom: 0; }
+.consent-card strong { color: var(--deep-blue); }
+ 
+/* ── QUESTION SCREENS ── */
+.q-meta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--warm-gray);
+  margin-bottom: 0.5rem;
+  margin-top: 1.25rem;
+}
+.q-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  line-height: 1.35;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+.q-sub {
+  font-size: 0.875rem;
+  color: var(--warm-gray);
+  line-height: 1.6;
+  margin-bottom: 1.75rem;
+}
+ 
+/* Scale buttons — matching site button style */
+.scale-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 0.6rem;
+}
+.sc {
+  flex: 1;
+  aspect-ratio: 1;
+  border: 2px solid rgba(26,59,92,0.15);
+  border-radius: 12px;
+  background: var(--off-white);
+  font-family: 'Fraunces', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--warm-gray);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: all .2s ease;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: 0 2px 6px rgba(26,59,92,0.06);
+}
+.sc .sl {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--warm-gray);
+}
+.sc:active { transform: scale(.94); }
+.sc.sel {
+  border-color: var(--swedish-blue);
+  background: var(--swedish-blue);
+  color: white;
+  box-shadow: 0 4px 16px rgba(0,88,163,0.25);
+}
+.sc.sel .sl { color: rgba(255,255,255,.65); }
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--warm-gray);
+  padding: 0 2px;
+  margin-top: 2px;
+}
+ 
+/* Choice cards */
+.choices { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 0.5rem; }
+.ch {
+  border: 2px solid rgba(26,59,92,0.12);
+  border-radius: 14px;
+  background: var(--off-white);
+  padding: 1rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all .2s ease;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  box-shadow: 0 2px 6px rgba(26,59,92,0.05);
+}
+.ch-em { font-size: 1.4rem; flex-shrink: 0; }
+.ch-txt strong { display: block; font-size: 0.9rem; font-weight: 700; color: var(--deep-blue); }
+.ch-txt span   { font-size: 0.78rem; color: var(--warm-gray); margin-top: 1px; display: block; }
+.ch:active { transform: scale(.98); }
+.ch.sel {
+  border-color: var(--swedish-blue);
+  background: rgba(0,88,163,0.05);
+}
+.ch.sel .ch-txt strong { color: var(--swedish-blue); }
+ 
+/* Textarea */
+.ta {
+  width: 100%;
+  border: 2px solid rgba(26,59,92,0.15);
+  border-radius: 14px;
+  padding: 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  color: var(--deep-blue);
+  background: var(--off-white);
+  resize: none;
+  min-height: 110px;
+  outline: none;
+  transition: border-color .2s;
+  line-height: 1.65;
+  box-shadow: 0 2px 6px rgba(26,59,92,0.05);
+}
+.ta:focus { border-color: var(--swedish-blue); }
+.ta::placeholder { color: var(--warm-gray); opacity: 0.8; }
+ 
+/* ── BOTTOM CTA — matching site button style ── */
+.btm {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 1rem 1.5rem 1.75rem;
+  background: linear-gradient(to top, var(--cream) 75%, transparent);
+  z-index: 50;
+  max-width: 480px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+.btn {
+  width: 100%;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 50px;
+  background: var(--deep-blue);
+  color: white;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: 0.01em;
+  box-shadow: 0 4px 20px rgba(26,59,92,0.25);
+}
+.btn:active { transform: scale(.98); box-shadow: 0 2px 10px rgba(26,59,92,0.2); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn.yellow {
+  background: var(--swedish-yellow);
+  color: var(--deep-blue);
+  box-shadow: 0 4px 20px rgba(255,205,0,0.4);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--warm-gray);
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: none;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+}
+.btn.green {
+  background: var(--green);
+  box-shadow: 0 4px 20px rgba(45,106,79,0.3);
+}
+.btn.danger {
+  background: var(--rust);
+  box-shadow: 0 4px 20px rgba(212,77,62,0.25);
+  margin-top: 0.5rem;
+}
+ 
+/* ── DIVIDER ── */
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, var(--swedish-blue) 50%, var(--swedish-yellow) 50%);
+  border-radius: 2px;
+  margin: 1.5rem 0;
+  opacity: 0.25;
+}
+ 
+/* ── THANK YOU ── */
+.ty { text-align: center; padding-top: 2.5rem; }
+.ty-ring {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--green), #52b788);
+  margin: 0 auto 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem;
+  animation: pop .5s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow: 0 8px 32px rgba(45,106,79,0.3);
+}
+@keyframes pop {
+  from { transform: scale(0); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.ty h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+.ty p {
+  font-size: 0.9rem;
+  color: var(--warm-gray);
+  max-width: 260px;
+  margin: 0 auto 1.75rem;
+  line-height: 1.65;
+}
+.next-card {
+  background: var(--off-white);
+  border: 1px solid rgba(26,59,92,0.1);
+  border-radius: 16px;
+  padding: 1.25rem;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 12px rgba(26,59,92,0.07);
+}
+.next-card h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--warm-gray);
+  margin-bottom: 0.875rem;
+}
+.ns {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+.ns:last-child { margin-bottom: 0; }
+.ns-n {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--swedish-blue);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.ns span { font-size: 0.875rem; color: var(--deep-blue); line-height: 1.5; }
+ 
+/* Declined */
+.dec { text-align: center; padding-top: 3rem; }
+.dec-em { font-size: 3rem; display: block; margin-bottom: 1.25rem; }
+.dec h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--deep-blue);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+.dec p { font-size: 0.9rem; color: var(--warm-gray); max-width: 260px; margin: 0 auto; line-height: 1.65; }
+</style>
+</head>
+<body>
+ 
+<div class="prog-track"><div class="prog-fill" id="pf" style="width:0%"></div></div>
+ 
+<nav class="nav">
+  <span class="nav-logo">Kompis</span>
+  <span class="nav-flag">🇸🇪</span>
+  <span class="nav-step" id="navStep">Innan vi börjar</span>
+</nav>
+ 
+<!-- ══ S0: WELCOME + CONSENT ══ -->
+<div class="scr on" id="s0">
+  <div class="hero-area">
+    <span class="hero-emoji">👋</span>
+    <h1>Innan vi börjar —<br>berätta lite om dig</h1>
+    <p>A few quick questions help Kompis understand where you are with Swedish right now.</p>
+  </div>
+ 
+  <div class="divider"></div>
+ 
+  <div class="info-cards">
+    <div class="ic"><span class="ic-emoji">⏱️</span><div class="ic-txt"><strong>3 minutes</strong><span>8 questions, no right or wrong answers</span></div></div>
+    <div class="ic"><span class="ic-emoji">🎯</span><div class="ic-txt"><strong>Shapes your experience</strong><span>Kompis adapts to exactly where you are</span></div></div>
+    <div class="ic"><span class="ic-emoji">📊</span><div class="ic-txt"><strong>Measures your progress</strong><span>We compare Day 1 with Day 21 so you see how far you've come</span></div></div>
+  </div>
+ 
+  <div class="consent-card">
+    <h3>🔒 En ärlig not</h3>
+    <p>Kompis keeps a note of your answers to track whether daily conversation actually helps people speak Swedish more confidently.</p>
+    <p>Your responses are stored securely and only used for this research pilot. You can delete everything at any time — just type <strong>/delete_my_data</strong> in the chat.</p>
+    <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.7">Data controller: Steve Emmanuel, Kompis. Legal basis: explicit consent.</p>
+  </div>
+ 
+  <div class="btm">
+    <button class="btn yellow" onclick="consent(true)">Jag godkänner — I agree 🇸🇪</button>
+    <button class="btn ghost" onclick="consent(false)">No thanks</button>
+  </div>
+</div>
+ 
+<!-- ══ S1: Q1 ══ -->
+<div class="scr" id="s1">
+  <div class="q-meta">Question 1 of 8 · Speaking confidence</div>
+  <h2 class="q-title">How comfortable are you having a simple conversation in Swedish?</h2>
+  <p class="q-sub">Talking to a cashier, asking for directions, saying hello to a neighbour.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,1,1)">1<span class="sl">Not at all</span></button>
+    <button class="sc" onclick="pick(this,1,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,1,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,1,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,1,5)">5<span class="sl">Very</span></button>
+  </div>
+  <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
+  <div class="btm"><button class="btn" id="c1" disabled onclick="go(2)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S2: Q2 ══ -->
+<div class="scr" id="s2">
+  <div class="q-meta">Question 2 of 8 · Speaking confidence</div>
+  <h2 class="q-title">How comfortable are you explaining your opinion on something in Swedish?</h2>
+  <p class="q-sub">Sharing what you think, disagreeing politely, telling a short story.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,2,1)">1<span class="sl">Not at all</span></button>
+    <button class="sc" onclick="pick(this,2,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,2,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,2,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,2,5)">5<span class="sl">Very</span></button>
+  </div>
+  <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
+  <div class="btm"><button class="btn" id="c2" disabled onclick="go(3)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S3: Q3 ══ -->
+<div class="scr" id="s3">
+  <div class="q-meta">Question 3 of 8 · Speaking confidence</div>
+  <h2 class="q-title">How comfortable are you speaking Swedish with native speakers you don't know?</h2>
+  <p class="q-sub">A doctor, a colleague, someone at the municipality, a stranger on the street.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,3,1)">1<span class="sl">Not at all</span></button>
+    <button class="sc" onclick="pick(this,3,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,3,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,3,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,3,5)">5<span class="sl">Very</span></button>
+  </div>
+  <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
+  <div class="btm"><button class="btn" id="c3" disabled onclick="go(4)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S4: Q4 ══ -->
+<div class="scr" id="s4">
+  <div class="q-meta">Question 4 of 8 · Speaking anxiety</div>
+  <h2 class="q-title">How often do you avoid situations where you'd need to speak Swedish?</h2>
+  <p class="q-sub">Choosing English, asking someone else to make a call, waiting until later.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,4,1)">1<span class="sl">Very often</span></button>
+    <button class="sc" onclick="pick(this,4,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,4,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,4,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,4,5)">5<span class="sl">Almost never</span></button>
+  </div>
+  <div class="scale-ends"><span>Very often</span><span>Almost never</span></div>
+  <div class="btm"><button class="btn" id="c4" disabled onclick="go(5)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S5: Q5 ══ -->
+<div class="scr" id="s5">
+  <div class="q-meta">Question 5 of 8 · Speaking anxiety</div>
+  <h2 class="q-title">How often do you switch to English instead of trying Swedish when you could?</h2>
+  <p class="q-sub">Even when you know some Swedish words that would probably work.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,5,1)">1<span class="sl">Very often</span></button>
+    <button class="sc" onclick="pick(this,5,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,5,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,5,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,5,5)">5<span class="sl">Almost never</span></button>
+  </div>
+  <div class="scale-ends"><span>Very often</span><span>Almost never</span></div>
+  <div class="btm"><button class="btn" id="c5" disabled onclick="go(6)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S6: Q6 ══ -->
+<div class="scr" id="s6">
+  <div class="q-meta">Question 6 of 8 · Speaking anxiety</div>
+  <h2 class="q-title">How nervous do you feel when you need to speak Swedish with a stranger?</h2>
+  <p class="q-sub">That feeling before picking up the phone or walking into an office.</p>
+  <div class="scale-row">
+    <button class="sc" onclick="pick(this,6,1)">1<span class="sl">Very nervous</span></button>
+    <button class="sc" onclick="pick(this,6,2)">2<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,6,3)">3<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,6,4)">4<span class="sl"></span></button>
+    <button class="sc" onclick="pick(this,6,5)">5<span class="sl">Not nervous</span></button>
+  </div>
+  <div class="scale-ends"><span>Very nervous</span><span>Not nervous at all</span></div>
+  <div class="btm"><button class="btn" id="c6" disabled onclick="go(7)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S7: Q7 ══ -->
+<div class="scr" id="s7">
+  <div class="q-meta">Question 7 of 8 · Practice habits</div>
+  <h2 class="q-title">How often do you practice speaking Swedish outside of formal classes?</h2>
+  <p class="q-sub">Conversations, listening, anything outside SFI or a course.</p>
+  <div class="choices">
+    <button class="ch" onclick="choose(this,7,'daily')"><span class="ch-em">🔥</span><div class="ch-txt"><strong>Every day</strong><span>I make it happen daily</span></div></button>
+    <button class="ch" onclick="choose(this,7,'few_week')"><span class="ch-em">📅</span><div class="ch-txt"><strong>A few times a week</strong><span>3–4 times most weeks</span></div></button>
+    <button class="ch" onclick="choose(this,7,'once_week')"><span class="ch-em">🗓️</span><div class="ch-txt"><strong>Once a week or so</strong><span>When I find time</span></div></button>
+    <button class="ch" onclick="choose(this,7,'rarely')"><span class="ch-em">🌙</span><div class="ch-txt"><strong>Rarely</strong><span>A few times a month at most</span></div></button>
+    <button class="ch" onclick="choose(this,7,'never')"><span class="ch-em">😔</span><div class="ch-txt"><strong>Almost never</strong><span>That's part of why I'm here</span></div></button>
+  </div>
+  <div class="btm"><button class="btn" id="c7" disabled onclick="go(8)">Nästa — Next →</button></div>
+</div>
+ 
+<!-- ══ S8: Q8 ══ -->
+<div class="scr" id="s8">
+  <div class="q-meta">Question 8 of 8 · Din upplevelse</div>
+  <h2 class="q-title">Tell us about the last time you avoided speaking Swedish when you could have tried.</h2>
+  <p class="q-sub">What happened? No wrong answers — this helps us understand you better.</p>
+  <textarea class="ta" id="q8txt" placeholder="For example: I needed to call my landlord but I asked my partner to do it instead, because I was afraid I wouldn't understand what they said..." oninput="chkQ8()"></textarea>
+  <div class="btm">
+    <button class="btn" id="c8" disabled onclick="submit()">Skicka in — Submit 🎯</button>
+    <button class="btn ghost" onclick="skipQ8()">Skip this question</button>
+  </div>
+</div>
+ 
+<!-- ══ THANK YOU ══ -->
+<div class="scr" id="sty">
+  <div class="ty">
+    <div class="ty-ring">✓</div>
+    <h2>Tack så mycket!</h2>
+    <p>Your answers are saved. Kompis will use them to personalise your experience from today.</p>
+    <div class="next-card">
+      <h3>What happens next</h3>
+      <div class="ns"><div class="ns-n">1</div><span>Go back to the Kompis chat and type <strong>klar</strong></span></div>
+      <div class="ns"><div class="ns-n">2</div><span>Record your first voice message — one sentence about your day</span></div>
+      <div class="ns"><div class="ns-n">3</div><span>Kompis messages you every day and tracks your progress over 21 days</span></div>
+    </div>
+  </div>
+  <div class="btm">
+    <button class="btn green" onclick="closeApp()">✓ Klar — Back to Kompis</button>
+  </div>
+</div>
+ 
+<!-- ══ DECLINED ══ -->
+<div class="scr" id="sdec">
+  <div class="dec">
+    <span class="dec-em">😊</span>
+    <h2>Inga problem alls.</h2>
+    <p>You can still use Kompis. Go back to the chat and type <strong>klar</strong> whenever you're ready to start talking.</p>
+    <p style="margin-top:1rem; font-size:0.8rem; opacity:0.7">If you change your mind about the questions, you can always open them again from the chat.</p>
+  </div>
+  <div class="btm">
+    <button class="btn ghost" onclick="closeApp()">Close</button>
+  </div>
+</div>
+ 
+<script>
+const A = {};
+const startTime = Date.now();
+ 
+function prog(n) {
+  document.getElementById('pf').style.width = (n === 0 ? 0 : Math.min(100, Math.round(n/8*100))) + '%';
+  document.getElementById('navStep').textContent = n === 0 ? 'Innan vi börjar' : `Fråga ${n} av 8`;
+}
+ 
+function go(n) {
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  const t = document.getElementById('s' + n);
+  if (t) { t.classList.add('on'); window.scrollTo(0,0); prog(n); }
+}
+ 
+function goId(id, label) {
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  const t = document.getElementById(id);
+  if (t) { t.classList.add('on'); window.scrollTo(0,0); }
+  if (label) document.getElementById('navStep').textContent = label;
+}
+ 
+function consent(agreed) {
+  A.consent = agreed;
+  A.consent_timestamp = new Date().toISOString();
+  if (agreed) {
+    go(1);
+  } else {
+    send({ type: 'pre_survey_declined', consent: false, timestamp: A.consent_timestamp });
+    goId('sdec', 'Inga problem');
+    document.getElementById('pf').style.width = '0%';
+  }
+}
+ 
+function pick(btn, q, v) {
+  A['q' + q] = v;
+  btn.closest('.scale-row').querySelectorAll('.sc').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  const cta = document.getElementById('c' + q);
+  if (cta) cta.disabled = false;
+}
+ 
+function choose(btn, q, v) {
+  A['q' + q] = v;
+  btn.closest('.choices').querySelectorAll('.ch').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+  const cta = document.getElementById('c' + q);
+  if (cta) cta.disabled = false;
+}
+ 
+function chkQ8() {
+  const v = document.getElementById('q8txt').value.trim();
+  A.q8 = v;
+  document.getElementById('c8').disabled = v.length < 8;
+}
+ 
+function skipQ8() { A.q8 = ''; submit(); }
+ 
+function submit() {
+  const payload = {
+    type:                 'pre_survey',
+    consent:              true,
+    consent_timestamp:    A.consent_timestamp,
+    q1_simple_convo:      A.q1 || null,
+    q2_explain_opinion:   A.q2 || null,
+    q3_native_speakers:   A.q3 || null,
+    q4_avoidance:         A.q4 || null,
+    q5_english_switching: A.q5 || null,
+    q6_nervousness:       A.q6 || null,
+    q7_practice_freq:     A.q7 || null,
+    q8_avoidance_story:   A.q8 || '',
+    duration_seconds:     Math.round((Date.now() - startTime) / 1000),
+    completed_at:         new Date().toISOString(),
+    source:               'miniapp'
+    // Composites are calculated BACKEND-SIDE in bot.py — not here
+  };
+  send(payload);
+  goId('sty', 'Tack!');
+  document.getElementById('pf').style.width = '100%';
+}
+ 
+function send(payload) {
+  if (window.Telegram && window.Telegram.WebApp) {
+    try { window.Telegram.WebApp.sendData(JSON.stringify(payload)); }
+    catch(e) { console.error('sendData failed:', e); }
+  } else {
+    console.log('[KOMPIS DEMO] Payload:', JSON.stringify(payload, null, 2));
+  }
+}
+ 
+function closeApp() {
+  if (window.Telegram && window.Telegram.WebApp) {
+    window.Telegram.WebApp.close();
+  }
+}
+ 
+if (window.Telegram && window.Telegram.WebApp) {
+  const tg = window.Telegram.WebApp;
+  tg.ready();
+  tg.expand();
+  tg.enableClosingConfirmation();
+}
+</script>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+</body>
+</html>
