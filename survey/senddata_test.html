@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Kompis — SendData Test</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+body {
+  font-family: -apple-system, sans-serif;
+  background: #FDF6E3;
+  color: #1A3B5C;
+  padding: 24px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+h2 { font-size: 20px; margin-bottom: 16px; }
+.status {
+  background: white;
+  border: 1px solid #dde4eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.ok   { border-left: 4px solid #2D6A4F; }
+.fail { border-left: 4px solid #c0392b; }
+.warn { border-left: 4px solid #c8943a; }
+button {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 50px;
+  background: #1A3B5C;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 16px;
+}
+button:active { opacity: 0.8; }
+#log {
+  background: #1a1a2e;
+  color: #00ff88;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: monospace;
+  font-size: 11px;
+  white-space: pre-wrap;
+  margin-top: 16px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+</style>
+</head>
+<body>
+
+<h2>🔍 Kompis — sendData Test</h2>
+
+<div class="status" id="s1">Checking Telegram SDK...</div>
+<div class="status" id="s2">Checking sendData availability...</div>
+<div class="status" id="s3">Ready to test</div>
+
+<button onclick="runTest()">Send Test Data to Bot</button>
+
+<div id="log"></div>
+
+<script>
+const log = document.getElementById('log');
+function addLog(msg) {
+  log.textContent += new Date().toISOString().slice(11,19) + ' ' + msg + '\n';
+  log.scrollTop = log.scrollHeight;
+}
+
+// Check 1: SDK loaded
+const s1 = document.getElementById('s1');
+if (typeof window.Telegram !== 'undefined') {
+  s1.textContent = '✅ Telegram object exists';
+  s1.className = 'status ok';
+  addLog('Telegram defined: true');
+} else {
+  s1.textContent = '❌ Telegram object NOT found — SDK did not load';
+  s1.className = 'status fail';
+  addLog('Telegram defined: false');
+}
+
+// Check 2: WebApp
+const s2 = document.getElementById('s2');
+if (window.Telegram && window.Telegram.WebApp) {
+  const tg = window.Telegram.WebApp;
+  addLog('WebApp version: ' + tg.version);
+  addLog('WebApp platform: ' + tg.platform);
+  addLog('initData length: ' + (tg.initData || '').length);
+
+  if (typeof tg.sendData === 'function') {
+    s2.textContent = '✅ sendData() is available';
+    s2.className = 'status ok';
+    addLog('sendData: function available');
+  } else {
+    s2.textContent = '⚠️ sendData exists but may not work in this context';
+    s2.className = 'status warn';
+    addLog('sendData type: ' + typeof tg.sendData);
+  }
+
+  tg.ready();
+  tg.expand();
+} else {
+  s2.textContent = '❌ Telegram.WebApp NOT available — not in Mini App context';
+  s2.className = 'status fail';
+  addLog('WebApp: not available');
+  addLog('This page must be opened from a Telegram bot button with web_app=WebAppInfo(url=...)');
+}
+
+// Check 3
+const s3 = document.getElementById('s3');
+s3.textContent = 'Tap the button to send test data to the bot';
+s3.className = 'status warn';
+
+function runTest() {
+  addLog('--- TEST START ---');
+  addLog('Telegram defined: ' + (typeof window.Telegram !== 'undefined'));
+  addLog('WebApp defined: ' + !!(window.Telegram && window.Telegram.WebApp));
+
+  if (!window.Telegram || !window.Telegram.WebApp) {
+    s3.textContent = '❌ Cannot send — not in Telegram Mini App';
+    s3.className = 'status fail';
+    addLog('FAIL: not in Telegram context');
+    return;
+  }
+
+  const tg = window.Telegram.WebApp;
+  const payload = JSON.stringify({
+    type: 'senddata_test',
+    message: 'Hello from Kompis test page',
+    timestamp: new Date().toISOString(),
+    platform: tg.platform,
+    version: tg.version
+  });
+
+  addLog('Payload: ' + payload);
+  addLog('Calling sendData...');
+
+  s3.textContent = '⏳ Sending...';
+  s3.className = 'status warn';
+
+  try {
+    tg.sendData(payload);
+    // If we get here, sendData was called (but app may close immediately)
+    addLog('sendData() called — app should close');
+    s3.textContent = '✅ sendData called — check Railway logs for SENDDATA_TEST';
+    s3.className = 'status ok';
+  } catch(e) {
+    addLog('ERROR: ' + e.message);
+    s3.textContent = '❌ sendData threw error: ' + e.message;
+    s3.className = 'status fail';
+  }
+}
+
+addLog('Page loaded — checks complete');
+</script>
+</body>
+</html>
