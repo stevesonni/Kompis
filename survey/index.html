@@ -18,9 +18,9 @@
   --off-white:      #FFFEF9;
   --green:          #2D6A4F;
 }
- 
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
 body {
   font-family: 'DM Sans', -apple-system, sans-serif;
   background: var(--cream);
@@ -29,7 +29,7 @@ body {
   overflow-x: hidden;
   min-height: 100vh;
 }
- 
+
 /* ── PROGRESS ── */
 .prog-track {
   position: fixed; top: 0; left: 0; right: 0;
@@ -42,7 +42,7 @@ body {
   background: linear-gradient(90deg, var(--swedish-blue), var(--swedish-yellow));
   transition: width .5s cubic-bezier(.4,0,.2,1);
 }
- 
+
 /* ── NAV ── */
 .nav {
   padding: 1rem 1.5rem;
@@ -68,7 +68,7 @@ body {
   color: var(--warm-gray);
   font-weight: 500;
 }
- 
+
 /* ── SCREENS ── */
 .scr {
   display: none;
@@ -82,7 +82,7 @@ body {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
 }
- 
+
 /* ── WELCOME / CONSENT ── */
 .hero-area {
   text-align: center;
@@ -119,7 +119,7 @@ body {
   margin: 0 auto;
   line-height: 1.65;
 }
- 
+
 /* Info cards matching site feature cards */
 .info-cards {
   margin-top: 2rem;
@@ -148,7 +148,7 @@ body {
   font-size: 0.8rem;
   color: var(--warm-gray);
 }
- 
+
 /* Consent box */
 .consent-card {
   background: var(--off-white);
@@ -176,7 +176,7 @@ body {
 }
 .consent-card p:last-child { margin-bottom: 0; }
 .consent-card strong { color: var(--deep-blue); }
- 
+
 /* ── QUESTION SCREENS ── */
 .q-meta {
   font-size: 0.75rem;
@@ -202,7 +202,7 @@ body {
   line-height: 1.6;
   margin-bottom: 1.75rem;
 }
- 
+
 /* Scale buttons — matching site button style */
 .scale-row {
   display: flex;
@@ -252,7 +252,7 @@ body {
   padding: 0 2px;
   margin-top: 2px;
 }
- 
+
 /* Choice cards */
 .choices { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 0.5rem; }
 .ch {
@@ -278,7 +278,7 @@ body {
   background: rgba(0,88,163,0.05);
 }
 .ch.sel .ch-txt strong { color: var(--swedish-blue); }
- 
+
 /* Textarea */
 .ta {
   width: 100%;
@@ -298,7 +298,7 @@ body {
 }
 .ta:focus { border-color: var(--swedish-blue); }
 .ta::placeholder { color: var(--warm-gray); opacity: 0.8; }
- 
+
 /* ── BOTTOM CTA — matching site button style ── */
 .btm {
   position: fixed;
@@ -357,7 +357,7 @@ body {
   box-shadow: 0 4px 20px rgba(212,77,62,0.25);
   margin-top: 0.5rem;
 }
- 
+
 /* ── DIVIDER ── */
 .divider {
   height: 2px;
@@ -366,7 +366,7 @@ body {
   margin: 1.5rem 0;
   opacity: 0.25;
 }
- 
+
 /* ── THANK YOU ── */
 .ty { text-align: center; padding-top: 2.5rem; }
 .ty-ring {
@@ -434,7 +434,7 @@ body {
   margin-top: 1px;
 }
 .ns span { font-size: 0.875rem; color: var(--deep-blue); line-height: 1.5; }
- 
+
 /* Declined */
 .dec { text-align: center; padding-top: 3rem; }
 .dec-em { font-size: 3rem; display: block; margin-bottom: 1.25rem; }
@@ -450,15 +450,15 @@ body {
 </style>
 </head>
 <body>
- 
+
 <div class="prog-track"><div class="prog-fill" id="pf" style="width:0%"></div></div>
- 
+
 <nav class="nav">
   <span class="nav-logo">Kompis</span>
   <span class="nav-flag">🇸🇪</span>
   <span class="nav-step" id="navStep">Innan vi börjar</span>
 </nav>
- 
+
 <!-- ══ S0: WELCOME + CONSENT ══ -->
 <div class="scr on" id="s0">
   <div class="hero-area">
@@ -466,28 +466,28 @@ body {
     <h1>Innan vi börjar —<br>berätta lite om dig</h1>
     <p>A few quick questions help Kompis understand where you are with Swedish right now.</p>
   </div>
- 
+
   <div class="divider"></div>
- 
+
   <div class="info-cards">
     <div class="ic"><span class="ic-emoji">⏱️</span><div class="ic-txt"><strong>3 minutes</strong><span>8 questions, no right or wrong answers</span></div></div>
     <div class="ic"><span class="ic-emoji">🎯</span><div class="ic-txt"><strong>Shapes your experience</strong><span>Kompis adapts to exactly where you are</span></div></div>
     <div class="ic"><span class="ic-emoji">📊</span><div class="ic-txt"><strong>Measures your progress</strong><span>We compare Day 1 with Day 21 so you see how far you've come</span></div></div>
   </div>
- 
+
   <div class="consent-card">
     <h3>🔒 En ärlig not</h3>
     <p>Kompis keeps a note of your answers to track whether daily conversation actually helps people speak Swedish more confidently.</p>
     <p>Your responses are stored securely and only used for this research pilot. You can delete everything at any time — just type <strong>/delete_my_data</strong> in the chat.</p>
     <p style="margin-top:0.5rem; font-size:0.72rem; opacity:0.7">Data controller: Steve Emmanuel, Kompis. Legal basis: explicit consent.</p>
   </div>
- 
+
   <div class="btm">
     <button class="btn yellow" onclick="consent(true)">Jag godkänner — I agree 🇸🇪</button>
     <button class="btn ghost" onclick="consent(false)">No thanks</button>
   </div>
 </div>
- 
+
 <!-- ══ S1: Q1 ══ -->
 <div class="scr" id="s1">
   <div class="q-meta">Question 1 of 8 · Speaking confidence</div>
@@ -503,7 +503,7 @@ body {
   <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
   <div class="btm"><button class="btn" id="c1" disabled onclick="go(2)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S2: Q2 ══ -->
 <div class="scr" id="s2">
   <div class="q-meta">Question 2 of 8 · Speaking confidence</div>
@@ -519,7 +519,7 @@ body {
   <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
   <div class="btm"><button class="btn" id="c2" disabled onclick="go(3)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S3: Q3 ══ -->
 <div class="scr" id="s3">
   <div class="q-meta">Question 3 of 8 · Speaking confidence</div>
@@ -535,7 +535,7 @@ body {
   <div class="scale-ends"><span>Not comfortable</span><span>Very comfortable</span></div>
   <div class="btm"><button class="btn" id="c3" disabled onclick="go(4)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S4: Q4 ══ -->
 <div class="scr" id="s4">
   <div class="q-meta">Question 4 of 8 · Speaking anxiety</div>
@@ -551,7 +551,7 @@ body {
   <div class="scale-ends"><span>Very often</span><span>Almost never</span></div>
   <div class="btm"><button class="btn" id="c4" disabled onclick="go(5)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S5: Q5 ══ -->
 <div class="scr" id="s5">
   <div class="q-meta">Question 5 of 8 · Speaking anxiety</div>
@@ -567,7 +567,7 @@ body {
   <div class="scale-ends"><span>Very often</span><span>Almost never</span></div>
   <div class="btm"><button class="btn" id="c5" disabled onclick="go(6)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S6: Q6 ══ -->
 <div class="scr" id="s6">
   <div class="q-meta">Question 6 of 8 · Speaking anxiety</div>
@@ -583,7 +583,7 @@ body {
   <div class="scale-ends"><span>Very nervous</span><span>Not nervous at all</span></div>
   <div class="btm"><button class="btn" id="c6" disabled onclick="go(7)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S7: Q7 ══ -->
 <div class="scr" id="s7">
   <div class="q-meta">Question 7 of 8 · Practice habits</div>
@@ -598,7 +598,7 @@ body {
   </div>
   <div class="btm"><button class="btn" id="c7" disabled onclick="go(8)">Nästa — Next →</button></div>
 </div>
- 
+
 <!-- ══ S8: Q8 ══ -->
 <div class="scr" id="s8">
   <div class="q-meta">Question 8 of 8 · Din upplevelse</div>
@@ -610,7 +610,7 @@ body {
     <button class="btn ghost" onclick="skipQ8()">Skip this question</button>
   </div>
 </div>
- 
+
 <!-- ══ THANK YOU ══ -->
 <div class="scr" id="sty">
   <div class="ty">
@@ -619,51 +619,51 @@ body {
     <p>Your answers are saved. Kompis will use them to personalise your experience from today.</p>
     <div class="next-card">
       <h3>What happens next</h3>
-      <div class="ns"><div class="ns-n">1</div><span>Go back to the Kompis chat and type <strong>klar</strong></span></div>
-      <div class="ns"><div class="ns-n">2</div><span>Record your first voice message — one sentence about your day</span></div>
-      <div class="ns"><div class="ns-n">3</div><span>Kompis messages you every day and tracks your progress over 21 days</span></div>
+      <div class="ns"><div class="ns-n">1</div><span>Kompis will message you in the chat automatically — no typing needed 🎉</span></div>
+      <div class="ns"><div class="ns-n">2</div><span>Speak one sentence about your day — Swedish, English, or mix</span></div>
+      <div class="ns"><div class="ns-n">3</div><span>Kompis checks in every day and tracks your progress over 21 days</span></div>
     </div>
   </div>
   <div class="btm">
-    <button class="btn green" onclick="closeApp()">✓ Klar — Back to Kompis</button>
+    <button class="btn green" onclick="closeApp()">✓ Done — Kompis is on its way 🇸🇪</button>
   </div>
 </div>
- 
+
 <!-- ══ DECLINED ══ -->
 <div class="scr" id="sdec">
   <div class="dec">
     <span class="dec-em">😊</span>
     <h2>Inga problem alls.</h2>
-    <p>You can still use Kompis. Go back to the chat and type <strong>klar</strong> whenever you're ready to start talking.</p>
+    <p>No problem. Close this and Kompis will be there whenever you want to start. 😊</p>
     <p style="margin-top:1rem; font-size:0.8rem; opacity:0.7">If you change your mind about the questions, you can always open them again from the chat.</p>
   </div>
   <div class="btm">
     <button class="btn ghost" onclick="closeApp()">Close</button>
   </div>
 </div>
- 
+
 <script>
 const A = {};
 const startTime = Date.now();
- 
+
 function prog(n) {
   document.getElementById('pf').style.width = (n === 0 ? 0 : Math.min(100, Math.round(n/8*100))) + '%';
   document.getElementById('navStep').textContent = n === 0 ? 'Innan vi börjar' : `Fråga ${n} av 8`;
 }
- 
+
 function go(n) {
   document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
   const t = document.getElementById('s' + n);
   if (t) { t.classList.add('on'); window.scrollTo(0,0); prog(n); }
 }
- 
+
 function goId(id, label) {
   document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
   const t = document.getElementById(id);
   if (t) { t.classList.add('on'); window.scrollTo(0,0); }
   if (label) document.getElementById('navStep').textContent = label;
 }
- 
+
 function consent(agreed) {
   A.consent = agreed;
   A.consent_timestamp = new Date().toISOString();
@@ -675,7 +675,7 @@ function consent(agreed) {
     document.getElementById('pf').style.width = '0%';
   }
 }
- 
+
 function pick(btn, q, v) {
   A['q' + q] = v;
   btn.closest('.scale-row').querySelectorAll('.sc').forEach(b => b.classList.remove('sel'));
@@ -683,7 +683,7 @@ function pick(btn, q, v) {
   const cta = document.getElementById('c' + q);
   if (cta) cta.disabled = false;
 }
- 
+
 function choose(btn, q, v) {
   A['q' + q] = v;
   btn.closest('.choices').querySelectorAll('.ch').forEach(b => b.classList.remove('sel'));
@@ -691,15 +691,15 @@ function choose(btn, q, v) {
   const cta = document.getElementById('c' + q);
   if (cta) cta.disabled = false;
 }
- 
+
 function chkQ8() {
   const v = document.getElementById('q8txt').value.trim();
   A.q8 = v;
   document.getElementById('c8').disabled = v.length < 8;
 }
- 
+
 function skipQ8() { A.q8 = ''; submit(); }
- 
+
 function submit() {
   const payload = {
     type:                 'pre_survey',
@@ -722,22 +722,33 @@ function submit() {
   goId('sty', 'Tack!');
   document.getElementById('pf').style.width = '100%';
 }
- 
+
 function send(payload) {
+  console.log('[KOMPIS] send() called with type:', payload.type);
+  console.log('[KOMPIS] Telegram.WebApp exists?', !!(window.Telegram && window.Telegram.WebApp));
   if (window.Telegram && window.Telegram.WebApp) {
-    try { window.Telegram.WebApp.sendData(JSON.stringify(payload)); }
-    catch(e) { console.error('sendData failed:', e); }
+    console.log('[KOMPIS] Calling sendData...');
+    try {
+      window.Telegram.WebApp.sendData(JSON.stringify(payload));
+      console.log('[KOMPIS] sendData called successfully');
+    } catch(e) {
+      console.error('[KOMPIS] sendData FAILED:', e);
+      // Show user-facing error so they know something went wrong
+      document.body.innerHTML += '<div style="position:fixed;bottom:80px;left:20px;right:20px;background:#c0392b;color:white;padding:12px;border-radius:8px;font-size:14px">Something went wrong. Close this and Kompis will still be waiting for you in the chat. 😊</div>';
+    }
   } else {
-    console.log('[KOMPIS DEMO] Payload:', JSON.stringify(payload, null, 2));
+    console.log('[KOMPIS DEMO] Not in Telegram. Payload:', JSON.stringify(payload, null, 2));
+    // In browser/demo mode - show what would be sent
+    console.log('[KOMPIS] This only works inside Telegram Mini App, not in a regular browser.');
   }
 }
- 
+
 function closeApp() {
   if (window.Telegram && window.Telegram.WebApp) {
     window.Telegram.WebApp.close();
   }
 }
- 
+
 if (window.Telegram && window.Telegram.WebApp) {
   const tg = window.Telegram.WebApp;
   tg.ready();
