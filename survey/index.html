@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:wght@600;700;900&display=swap" rel="stylesheet">
+<!-- Telegram Mini App SDK — must load in <head> before any script -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 :root {
   --cream:          #FDF6E3;
@@ -670,9 +672,12 @@ function consent(agreed) {
   if (agreed) {
     go(1);
   } else {
-    send({ type: 'pre_survey_declined', consent: false, timestamp: A.consent_timestamp });
+    // Show declined screen first, then send data after short delay
     goId('sdec', 'Inga problem');
     document.getElementById('pf').style.width = '0%';
+    setTimeout(function() {
+      send({ type: 'pre_survey_declined', consent: false, timestamp: A.consent_timestamp });
+    }, 500);
   }
 }
 
@@ -705,6 +710,8 @@ function submit() {
     type:                 'pre_survey',
     consent:              true,
     consent_timestamp:    A.consent_timestamp,
+    tg_first_name:        A.tg_first_name || null,
+    tg_language:          A.tg_language || null,
     q1_simple_convo:      A.q1 || null,
     q2_explain_opinion:   A.q2 || null,
     q3_native_speakers:   A.q3 || null,
@@ -716,30 +723,46 @@ function submit() {
     duration_seconds:     Math.round((Date.now() - startTime) / 1000),
     completed_at:         new Date().toISOString(),
     source:               'miniapp'
-    // Composites are calculated BACKEND-SIDE in bot.py — not here
+    // Composites calculated BACKEND-SIDE in bot.py
   };
-  send(payload);
+
+  // Show sending state immediately so user gets feedback
   goId('sty', 'Tack!');
   document.getElementById('pf').style.width = '100%';
+
+  // Small delay so user sees the screen, then send and close
+  setTimeout(function() {
+    send(payload);
+    // sendData() closes the Mini App automatically in Telegram
+    // If not in Telegram (demo mode), close manually after 2s
+    if (!(window.Telegram && window.Telegram.WebApp)) {
+      console.log('[KOMPIS DEMO] Not in Telegram — survey complete (demo mode)');
+    }
+  }, 800);
 }
 
 function send(payload) {
-  console.log('[KOMPIS] send() called with type:', payload.type);
-  console.log('[KOMPIS] Telegram.WebApp exists?', !!(window.Telegram && window.Telegram.WebApp));
-  if (window.Telegram && window.Telegram.WebApp) {
-    console.log('[KOMPIS] Calling sendData...');
+  console.log('[KOMPIS] send() called — type:', payload.type);
+  console.log('[KOMPIS] window.Telegram defined?', typeof window.Telegram !== 'undefined');
+  console.log('[KOMPIS] window.Telegram.WebApp defined?', !!(window.Telegram && window.Telegram.WebApp));
+
+  if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
+    console.log('[KOMPIS] sendData is available — calling now');
+    console.log('[KOMPIS] Payload size:', JSON.stringify(payload).length, 'chars');
     try {
       window.Telegram.WebApp.sendData(JSON.stringify(payload));
-      console.log('[KOMPIS] sendData called successfully');
+      // Note: sendData() closes the Mini App immediately — code after this may not run
+      console.log('[KOMPIS] sendData called — app should close now');
     } catch(e) {
-      console.error('[KOMPIS] sendData FAILED:', e);
-      // Show user-facing error so they know something went wrong
-      document.body.innerHTML += '<div style="position:fixed;bottom:80px;left:20px;right:20px;background:#c0392b;color:white;padding:12px;border-radius:8px;font-size:14px">Something went wrong. Close this and Kompis will still be waiting for you in the chat. 😊</div>';
+      console.error('[KOMPIS] sendData FAILED:', e.message);
+      alert('Could not send your answers. Please close this and try again from the chat.');
     }
   } else {
-    console.log('[KOMPIS DEMO] Not in Telegram. Payload:', JSON.stringify(payload, null, 2));
-    // In browser/demo mode - show what would be sent
-    console.log('[KOMPIS] This only works inside Telegram Mini App, not in a regular browser.');
+    // Not inside Telegram Mini App — browser or incorrect launch mode
+    console.warn('[KOMPIS] sendData NOT available. This survey must be opened from the Telegram bot button, not a browser link.');
+    console.warn('[KOMPIS] Telegram object:', window.Telegram);
+    console.warn('[KOMPIS] Payload would have been:', JSON.stringify(payload, null, 2));
+    // In demo/browser mode just log — no action needed
   }
 }
 
@@ -749,13 +772,30 @@ function closeApp() {
   }
 }
 
+console.log('[KOMPIS INIT] Script running');
+console.log('[KOMPIS INIT] Telegram defined:', typeof window.Telegram !== 'undefined');
+console.log('[KOMPIS INIT] WebApp defined:', !!(window.Telegram && window.Telegram.WebApp));
 if (window.Telegram && window.Telegram.WebApp) {
+  console.log('[KOMPIS INIT] SDK loaded correctly');
   const tg = window.Telegram.WebApp;
   tg.ready();
   tg.expand();
   tg.enableClosingConfirmation();
+  console.log('[KOMPIS INIT] version:', tg.version, 'platform:', tg.platform);
+  try {
+    const tgUser = tg.initDataUnsafe && tg.initDataUnsafe.user;
+    if (tgUser && tgUser.first_name) {
+      A.tg_first_name = tgUser.first_name;
+      A.tg_username   = tgUser.username || '';
+      A.tg_language   = tgUser.language_code || '';
+      console.log('[KOMPIS INIT] Name pre-filled:', tgUser.first_name);
+    }
+  } catch(e) {
+    console.log('[KOMPIS INIT] Name pre-fill skipped:', e);
+  }
+} else {
+  console.warn('[KOMPIS INIT] NOT in Telegram Mini App — sendData unavailable');
 }
 </script>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
 </body>
 </html>
